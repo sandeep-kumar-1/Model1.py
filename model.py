@@ -73,6 +73,15 @@ model.add(Dropout(0.5))
 model.add(Dense(4096, activation='relu'))
 model.add(Dropout(0.5))
 model.add(Dense(7, activation='softmax'))
+           
+model.fit(X_train,train_y,batch_size=32,epochs=30,verbose=1,validation_data=(X_test, test_y))
+loss_and_metrics = model.evaluate(X_test,y_test)
+print(loss_and_metrics)
+model_json = model.to_json()
+with open("model.json", "w") as json_file:
+json_file.write(model_json)
+model.save_weights("model.h5")
+print("Saved model to disk")
 
 //compile:model.compile(optimizer='sgd',loss='categorical_crossentropy',metrics=['accuracy'])
 
